@@ -1,12 +1,12 @@
 @baseUrl = http://localhost:5000
-@baggageId=69fda8214a5f6f66e7b79db5
+@baggageId=6a0ecc7e0dc20417b0910d29
 
 ### Create Baggage Data
 POST {{baseUrl}}/baggages
 Content-Type: application/json
 
 {
-    "name": ""
+    "name": "Radhe Radhe"
 }
 
 ### Get all baggages
