@@ -32,3 +32,33 @@ export const createUserValidator = [
         .escape(),
     validate
 ];
+
+export const UpdateUserValidator = [
+    body("name")
+        .optional()
+        .trim()
+        .escape(),
+    body("email")
+        .optional()
+        .isEmail()
+        .withMessage("Invalid Email maa kaa laadle")
+        .normalizeEmail()
+        .trim()
+        .custom(async (value, {req}) => {
+            const user = await User.findOne ({
+                email: value,
+                _id: {$ne: req.params.id}
+            });
+
+            if (user) {
+                throw new ValidationError("Maa kaa laadle this email already exists")
+            }
+            return true;
+        }),
+    body("password")
+        .optional()
+        .isLength({min: 8})
+        .withMessage("Maa kaa laadle password must be at least 8 characters long")
+        .trim(),
+    validate
+];

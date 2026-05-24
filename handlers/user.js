@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { createUserValidator } from "../validators/user.js";
-import { create } from "../services/user.js";
+import { createUserValidator, UpdateUserValidator } from "../validators/user.js";
+import { create, destroy, getAll } from "../services/user.js";
 
 const USER_ROUTER = Router();
 
@@ -8,6 +8,33 @@ USER_ROUTER.post("/", createUserValidator, async (req, res, next) => {
     try {
         const user = await create(req.body);
         res.status(201).json({ data: user });
+    } catch (error) {
+        next(error);
+    }
+});
+
+USER_ROUTER.get("/", async (req, res, next) => {
+    try{
+        const users = await getAll();
+        res.status(200).json({ data: users });
+    } catch (error) {
+        next(error);
+    }
+});
+
+USER_ROUTER.patch("/:id", UpdateUserValidator, async (req, res, next) => {
+    try {
+        const user = await update(req.params.id, req.body);
+        res.status(200).json({data: user});
+    } catch (error) {
+        next (error);
+    }
+});
+
+USER_ROUTER.delete("/:id", async (req, res, next) => {
+    try {
+        const user = await destroy(req.params.id);
+        res.status(200).json({ data: user});
     } catch (error) {
         next(error);
     }
