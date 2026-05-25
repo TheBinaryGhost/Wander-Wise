@@ -1,6 +1,7 @@
 @baseUrl = http://localhost:5000
-@baggageId=6a0ecc7e0dc20417b0910d29
+@baggageId=6a0ecc700dc20417b0910d28
 
+@userID=6a1407978ace9271b2a02e92
 ### Create Baggage Data
 POST {{baseUrl}}/baggages
 Content-Type: application/json
@@ -33,6 +34,42 @@ Content-Type: application/json
 
 {
     "name": "Test User",
+    "email": "user@test.com",
+    "password": "abcdefgh"
+}
+
+### Get all Users
+GET {{baseUrl}}/users
+
+### Get specific user
+GET {{baseUrl}}/users/{{userID}}
+
+### update a user
+PATCH {{baseUrl}}/users/{{userID}}
+Content-Type: application/json
+
+{
+    "email": "user@test2.com"
+}
+
+### Delete specific user
+DELETE {{baseUrl}}/users/{{userID}}
+
+### register a user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "name": "Test User",
+    "email": "user@test.com",
+    "password": "abcdefgh"
+}
+
+### login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
     "email": "user@test.com",
     "password": "abcdefgh"
 }
