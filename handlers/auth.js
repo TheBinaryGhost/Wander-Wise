@@ -1,5 +1,6 @@
-import {Router} from "express";
-import { createUserValidator, loginValidator } from "../validators/user.js"
+import { Router } from "express";
+import { createUserValidator, loginValidator } from "../validators/user.js";
+import { login, register } from "../services/auth.js";
 
 const AUTH_ROUTER = Router();
 

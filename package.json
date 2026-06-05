@@ -12,20 +12,19 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.69.1",
+    "@dotenvx/dotenvx": "^1.64.0",
     "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
     "jsonwebtoken": "^9.0.3",
-    "mongodb": "^7.2.0",
-    "mongoose": "^9.6.3",
+    "mongoose": "^9.6.1",
     "nodemailer": "^8.0.10"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
   },
   "allowScripts": {
-    "bcrypt@6.0.0": true,
-    "fsevents@2.3.3": true
+    "fsevents@2.3.3": true,
+    "bcrypt@6.0.0": true
   }
 }

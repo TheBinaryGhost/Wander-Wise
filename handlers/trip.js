@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { create, destroy, getAll, getOne, update } from "../services/trip.js";
+import { acceptInvite, create, destroy, getAll, getOne, inviteCollaborator, update } from "../services/trip.js";
 import { createTripValidator, updateTripValidator } from "../validators/trip.js";
 
 const TRIP_ROUTER = Router();
@@ -21,7 +21,7 @@ TRIP_ROUTER.get(
   "/",
   async (req, res, next) => {
     try {
-      const trips = await getAll(req.body, req.user);
+      const trips = await getAll(req.user);
       res.status(200).json({ data: trips });
     } catch (error) {
       next(error);
@@ -65,5 +65,32 @@ TRIP_ROUTER.delete(
     }
   }
 );
+
+TRIP_ROUTER.post(
+  "/:id/invite",
+  async (req, res, next) => {
+    try {
+      const result = await inviteCollaborator(
+        req.params.id,
+        req.user,
+        req.body.collaboratorEmails
+      );
+      res.status(200).json({ data: result});
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+TRIP_ROUTER.get(
+  "/:id/invite/accept",
+  async (req, res, next) => {
+    try {
+      const result = await acceptInvite(req.query.token, req.user);
+      res.status(200).json({ data: result });
+    } catch (error) {
+      next(error);
+    }
+})
 
 export default TRIP_ROUTER;

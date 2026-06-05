@@ -1,8 +1,9 @@
-@baseUrl = http://localhost:5000
-@baggageID=
-@userID=
-@tripID=
-@token=
+@baseUrl = http://localhost:3000
+@baggageId=
+@userId=6a228da0016058169b4fc4d1
+@tripId=6a228ea2016058169b4fc4d2
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTIyOGRhMDAxNjA1ODE2OWI0ZmM0ZDEiLCJpYXQiOjE3ODA2NDk1NjYsImV4cCI6MTc4MDczNTk2Nn0.30oPdjXwfByHc4G7liulaaxvWIyG2uvyBeP1s1go0PA
+@invitationToken=
 
 ### Create Baggage Data
 POST {{baseUrl}}/baggages
@@ -18,11 +19,11 @@ GET {{baseUrl}}/baggages
 Authorization: Bearer {{token}}
 
 ### Get a specific baggage
-GET {{baseUrl}}/baggages/{{baggageID}}
+GET {{baseUrl}}/baggages/{{baggageId}}
 Authorization: Bearer {{token}}
 
 ### update a specific baggage
-PATCH {{baseUrl}}/baggages/{{baggageID}}
+PATCH {{baseUrl}}/baggages/{{baggageId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -32,7 +33,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Delete a specific baggage
-DELETE  {{baseUrl}}/baggages/{{baggageID}}
+DELETE  {{baseUrl}}/baggages/{{baggageId}}
 Authorization: Bearer {{token}}
 
 ### create a user
@@ -51,11 +52,11 @@ GET {{baseUrl}}/users
 Authorization: Bearer {{token}}
 
 ### Get specific user
-GET {{baseUrl}}/users/{{userID}}
+GET {{baseUrl}}/users/{{userId}}
 Authorization: Bearer {{token}}
 
 ### update a user
-PATCH {{baseUrl}}/users/{{userID}}
+PATCH {{baseUrl}}/users/{{userId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -64,7 +65,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Delete specific user
-DELETE {{baseUrl}}/users/{{userID}}
+DELETE {{baseUrl}}/users/{{userId}}
 Authorization: Bearer {{token}}
 
 ### register a user
@@ -106,11 +107,11 @@ GET {{baseUrl}}/trips
 Authorization: Bearer {{token}}
 
 ### Get a trip by id
-GET {{baseUrl}}/trips/{{tripID}}
+GET {{baseUrl}}/trips/{{tripId}}
 Authorization: Bearer {{token}}
 
 ### Update trip
-PATCH {{baseUrl}}/trips/{{tripID}}
+PATCH {{baseUrl}}/trips/{{tripId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -124,11 +125,11 @@ Authorization: Bearer {{token}}
 }
 
 ### Delete a trip
-DELETE {{baseUrl}}/trips/{{tripID}}
+DELETE {{baseUrl}}/trips/{{tripId}}
 Authorization: Bearer {{token}}
 
 ### send trip invitation
-POST {{baseUrl}}/trips/{{tripID}}/invite
+POST {{baseUrl}}/trips/{{tripId}}/invite
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -137,3 +138,7 @@ Authorization: Bearer {{token}}
         "shashankj677@gmail.com"
     ]
 }
+
+### Accept invite
+GET {{baseUrl}}/trips/{{tripId}}/invite/accept?token={{invitationToken}}
+Authorization: Bearer {{token}}
