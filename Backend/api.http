@@ -1,12 +1,13 @@
 @baseUrl = http://localhost:3000
-@baggageId=
+@baggageId=6a27cbb454cb42ed4eedff1d
+@itineraryId=
 @userId=6a228da0016058169b4fc4d1
 @tripId=6a228ea2016058169b4fc4d2
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTIyOGRhMDAxNjA1ODE2OWI0ZmM0ZDEiLCJpYXQiOjE3ODA2NDk1NjYsImV4cCI6MTc4MDczNTk2Nn0.30oPdjXwfByHc4G7liulaaxvWIyG2uvyBeP1s1go0PA
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTIyOGRhMDAxNjA1ODE2OWI0ZmM0ZDEiLCJpYXQiOjE3ODA5OTI4NDUsImV4cCI6MTc4MTA3OTI0NX0.8reDqN9wUP0CMS7M1jsPhci0aim_a9g4tOH9BZRGBS0
 @invitationToken=
 
 ### Create Baggage Data
-POST {{baseUrl}}/baggages
+POST {{baseUrl}}/{{tripId}}/baggages
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -15,15 +16,15 @@ Authorization: Bearer {{token}}
 }
 
 ### Get all baggages
-GET {{baseUrl}}/baggages
+GET {{baseUrl}}/{{tripId}}/baggages
 Authorization: Bearer {{token}}
 
 ### Get a specific baggage
-GET {{baseUrl}}/baggages/{{baggageId}}
+GET {{baseUrl}}/{{tripId}}/baggages/{{baggageId}}
 Authorization: Bearer {{token}}
 
 ### update a specific baggage
-PATCH {{baseUrl}}/baggages/{{baggageId}}
+PATCH {{baseUrl}}/{{tripId}}/baggages/{{baggageId}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -33,7 +34,75 @@ Authorization: Bearer {{token}}
 }
 
 ### Delete a specific baggage
-DELETE  {{baseUrl}}/baggages/{{baggageId}}
+DELETE  {{baseUrl}}/{{tripId}}/baggages/{{baggageId}}
+Authorization: Bearer {{token}}
+
+### Create Itinerary
+POST {{baseUrl}}/{{tripId}}/itineraries
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "trip": "{{tripId}}",
+    "title": "Day 1 in Pokhara",
+    "description": "Arrival, lake walk, and dinner near Lakeside.",
+    "date": "2025-12-15",
+    "activities": [
+        {
+            "name": "Check in at hotel",
+            "time": "14:00",
+            "notes": [
+                "Confirm lake-view room",
+                "Ask about breakfast timing"
+            ]
+        },
+        {
+            "name": "Walk around Phewa Lake",
+            "time": "17:00",
+            "notes": [
+                "Bring a light jacket"
+            ]
+        }
+    ]
+}
+
+### Get all itineraries
+GET {{baseUrl}}/{{tripId}}/itineraries
+Authorization: Bearer {{token}}
+
+### Get a specific itinerary
+GET {{baseUrl}}/{{tripId}}/itineraries/{{itineraryId}}
+Authorization: Bearer {{token}}
+
+### Update a specific itinerary
+PATCH {{baseUrl}}/{{tripId}}/itineraries/{{itineraryId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Day 1 in Pokhara - Lakeside",
+    "description": "Arrival, sunset walk, and dinner near Lakeside.",
+    "date": "2025-12-15",
+    "activities": [
+        {
+            "name": "Check in at hotel",
+            "time": "14:00",
+            "notes": [
+                "Confirm lake-view room"
+            ]
+        },
+        {
+            "name": "Dinner at Lakeside",
+            "time": "19:30",
+            "notes": [
+                "Reserve a table"
+            ]
+        }
+    ]
+}
+
+### Delete a specific itinerary
+DELETE {{baseUrl}}/{{tripId}}/itineraries/{{itineraryId}}
 Authorization: Bearer {{token}}
 
 ### create a user

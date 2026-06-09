@@ -74,9 +74,7 @@ export const inviteCollaborator = async (id, userId, collaboratorEmails) => {
 }
 
 export const acceptInvite = async (token, userId) => {
-  console.log(token);
   const tripId = verifyAccessToken(token);
-  console.log(tripId);
   const trip = await Trip.findOne({ _id: tripId }).populate(
     "collaborators"
   );

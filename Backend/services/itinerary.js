@@ -1,6 +1,7 @@
-import Itinerary from "../models/itinerary";
+import Itinerary from "../models/itinerary.js";
 import { getOne as getTrip } from "./trip.js";
 import { ValidationError } from "../errors/validation.js";
+import { NotFoundError } from "../errors/not-found.js";
 
 export const create = async (data, tripId, userId) => {
   const trip = await getTrip(tripId, userId);
@@ -31,7 +32,7 @@ export const getOne = async (id, userId, tripId) => {
   return itinerary;
 };
 
-export const update = async (id, userId, tripId, itineraryData) => {
+export const update = async (id, userId, tripId, data) => {
   await getTrip(tripId, userId);
 
   if (
@@ -43,7 +44,7 @@ export const update = async (id, userId, tripId, itineraryData) => {
 
   const itinerary = await Itinerary.findOneAndUpdate(
     { _id: id, trip: tripId },
-    itineraryData,
+    data,
     {
       returnDocument: 'after',
     }

@@ -32,9 +32,9 @@ const itinerarySchema = new Schema(
       required: true,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-export default model("Itinerary", itinerarySchema);
+const Itinerary = model("Itinerary", itinerarySchema);
+
+export default Itinerary;

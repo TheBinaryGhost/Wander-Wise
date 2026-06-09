@@ -7,13 +7,18 @@ export const create = async (data, userId, tripId) => { // data => { name: "jack
      * create(data) => create({ ...data, user: userId })
      * create({ name: "jacket" }) => create({ name: "jacket", user: "6a12bf665286d3767baa8e67" })
      */
-    await getTrip(tripId, UserId);
+
+    /**
+     * Before creating baggage, We need to first check
+     * whether or not the trip exists
+     */
+    await getTrip(tripId, userId);
     const baggage = await Baggage.create({ ...data, user: userId, trip: tripId });
     return baggage;
 }
 
-export const getAll = async (userId) => {
-    const baggages = await Baggage.find({ user: userId });
+export const getAll = async (userId, tripId) => {
+    const baggages = await Baggage.find({ user: userId, trip: tripId });
     return baggages;
 }
 
