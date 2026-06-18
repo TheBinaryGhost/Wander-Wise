@@ -1,24 +1,28 @@
 import React from 'react'
+import CustomButton from '../shared/CustomButton'
 
-const navbar = () => {
+const Navbar = () => {
   return (
-    <header className="px-20 py-4 flex justify-between items-center">
-        <div> 
-            <h1 className="text-4xl font-semibold">WanderWise</h1> 
+    <header className="px-20 py-4 fixed top-0 z-30 bg-white w-full flex justify-between items-center">
+        {/* left part */}
+        <div>
+            <h1 className="text-4xl font-semibold">WanderWise</h1>
         </div>
-        <div className='flex items-center gap-8'>
-            <nav className='text-lg'>
+
+        {/* right part  */}
+        <div className='flex items-center gap-16'>
+            <nav className='text-lg space-x-8'>
                 <a href="/">Home</a>
                 <a href="/about">About</a>
                 <a href="/contact">Contact</a>
             </nav>
 
-            <button className='bg-blue-500 px-4 py-1.5 rounded-sm text-white cursor-pointer hover:bg-blue-700'>
-                Login
-            </button>
+            <CustomButton text="Login" link="/login" isLogin={true} />
+            
+
         </div>
     </header>
   )
 }
 
-export default navbar
+export default Navbar

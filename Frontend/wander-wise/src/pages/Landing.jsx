@@ -1,12 +1,20 @@
 import React from 'react'
-import navbar from '../components/landingComponents/navbar'
+import Navbar from '../components/landingComponents/Navbar'
+import Hero from '../components/landingComponents/Hero'
+import Features from '../components/landingComponents/Features'
+import About from '../components/landingComponents/About'
+import Testimonials from '../components/landingComponents/Testimonials'
 
-function landing() {
+const Landing = () => {
   return (
     <div>
-      <navbar> </navbar>
+        <Navbar />
+        <Hero />
+        <Features />
+        <About />
+        <Testimonials />
     </div>
   )
 }
 
-export default landing
+export default Landing

@@ -1,9 +1,18 @@
 import React from 'react'
+import Navbar from '../components/landingComponents/Navbar'
+import CustomButton from '../components/shared/CustomButton'
 
-function about() {
+const About = () => {
   return (
-    <div>about</div>
+    <div>
+      <Navbar />
+
+      <CustomButton text="hello" />
+
+
+
+    </div>
   )
 }
 
-export default about
+export default About
