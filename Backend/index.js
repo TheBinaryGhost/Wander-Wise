@@ -25,20 +25,6 @@ app.use(cors({
 app.use("/auth/login", rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
 app.use("/auth/register", rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
 
-// Rate limit sensitive endpoints: 20 requests per 15 minutes
-app.use("/trips", (req, res, next) => {
-  if (req.method === "POST" && req.path.includes("/invite")) {
-    return rateLimit({ windowMs: 15 * 60 * 1000, max: 20 })(req, res, next);
-  }
-  next();
-});
-app.use("/users", (req, res, next) => {
-  if (req.method === "PATCH") {
-    return rateLimit({ windowMs: 15 * 60 * 1000, max: 20 })(req, res, next);
-  }
-  next();
-});
-
 // General rate limit: 100 requests per 15 minutes
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
-import { Calendar, Clock, DollarSign, Edit, MapPin, Trash2, Users } from 'lucide-react'
+import { Calendar, Clock, DollarSign, Edit, MapPin, Trash2, User, Users } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
 import api from '@/api/axios'

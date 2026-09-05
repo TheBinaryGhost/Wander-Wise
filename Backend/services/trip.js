@@ -79,6 +79,11 @@ export const addExpense = async (id, expenseData, userId) => {
     { returnDocument: 'after', new: true }
   );
   if (!trip) throw new NotFoundError("Trip not found");
+
+  const newSpent = trip.budget.expenses.reduce((acc, exp) => acc + exp.amount, 0);
+  trip.budget.spent = newSpent;
+  await trip.save();
+
   return trip;
 };
 
