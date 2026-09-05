@@ -21,8 +21,8 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// Rate limit auth endpoints: 10 requests per 15 minutes
-app.use("/auth/login", rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
+// Rate limit auth endpoints: 30 requests per 15 minutes
+app.use("/auth/login", rateLimit({ windowMs: 15 * 60 * 1000, max: 30 }));
 app.use("/auth/register", rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
 
 // General rate limit: 100 requests per 15 minutes
