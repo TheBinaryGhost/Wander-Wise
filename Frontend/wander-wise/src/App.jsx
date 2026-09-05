@@ -5,6 +5,7 @@ import useAuth from './hooks/useAuth'
 import AppLayout from './layouts/AppLayout'
 import Landing from './pages/Landing'
 import About from './pages/About'
+import Contact from './pages/Contact'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -23,7 +24,7 @@ import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
 
 const ProtectedRoutes = () => {
-  const { token, logout } = useAuth();
+    const { token } = useAuth();
 
   try {
     const decodedToken = token ? jwtDecode(token) : null;
@@ -53,8 +54,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/trips/:tripId/invite/accept" element={<AcceptInvite />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -62,7 +66,6 @@ const App = () => {
           <Route path="/trips/add" element={<AddTrip />} />
           <Route path="/trips" element={<Trip />} />
           <Route path="/trips/edit/:tripId" element={<EditTrip />} />
-          <Route path="/trips/:tripId/invite/accept" element={<AcceptInvite />} />
           <Route path="/trips/:tripId" element={<TripDetails />} />
           <Route path="/baggage" element={<Baggage />} />
           <Route path="/baggage/:tripId" element={<BaggageDetails />} />

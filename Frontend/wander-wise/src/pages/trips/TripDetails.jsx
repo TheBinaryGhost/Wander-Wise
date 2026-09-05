@@ -203,7 +203,7 @@ const TripDetails = () => {
                         </CardContent>
                     </Card>
 
-                    <InviteForm tripId={tripId} />
+                    {data.role === "owner" && <InviteForm tripId={tripId} />}
 
                     <Card>
                         <CardHeader>

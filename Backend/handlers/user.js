@@ -59,6 +59,9 @@ USER_ROUTER.patch("/:id", updateUserValidator, async (req, res, next) => {
         if (!req.user) {
             return res.status(401).json({ message: "Unauthorized" });
         }
+        if (req.user !== req.params.id) {
+            return res.status(403).json({ message: "You can only update your own profile" });
+        }
         const user = await update(req.params.id, req.body);
         res.status(200).json({ data: user });
     } catch (error) {
@@ -70,6 +73,9 @@ USER_ROUTER.delete("/:id", async (req, res, next) => {
     try {
         if (!req.user) {
             return res.status(401).json({ message: "Unauthorized" });
+        }
+        if (req.user !== req.params.id) {
+            return res.status(403).json({ message: "You can only delete your own account" });
         }
         const user = await destroy(req.params.id);
         res.status(200).json({ data: user });

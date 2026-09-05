@@ -16,7 +16,14 @@ export const getAll = async (userId) => {
   })
     .populate("collaborators", ["name", "email"])
     .populate("user", "name");
-  return trips;
+
+  return trips.map((trip) => {
+    const obj = trip.toObject();
+    obj.role = trip.user._id?.toString() === userId.toString() || trip.user.toString() === userId.toString()
+      ? "owner"
+      : "collaborator";
+    return obj;
+  });
 };
 
 export const getOne = async (id, userId) => {
@@ -29,18 +36,33 @@ export const getOne = async (id, userId) => {
     ],
   })
   .populate("collaborators", ["name", "email"])
-  .populate("user", "name");
+  .populate("user", "name email");
   if (!trip) throw new NotFoundError("Trip not found");
-  return trip;
+
+  const obj = trip.toObject();
+  obj.role = trip.user._id?.toString() === userId.toString() || trip.user.toString() === userId.toString()
+    ? "owner"
+    : "collaborator";
+  return obj;
 };
 
+export const find = getOne;
+
 export const update = async (id, tripData, userId) => {
+  const allowedFields = {
+    title: tripData.title,
+    description: tripData.description,
+    startDate: tripData.startDate,
+    endDate: tripData.endDate,
+    destinations: tripData.destinations,
+    budget: tripData.budget,
+  };
   const trip = await Trip.findOneAndUpdate(
-    { _id: id, $or: [{ user: userId }, { collaborators: userId }] },
-    tripData,
+    { _id: id, user: userId },
+    allowedFields,
     { returnDocument: 'after' }
   );
-  if (!trip) throw new NotFoundError("Trip not found");
+  if (!trip) throw new NotFoundError("Trip not found or you are not the owner");
   return trip;
 };
 
@@ -50,8 +72,22 @@ export const destroy = async (id, userId) => {
   return trip;
 };
 
+export const addExpense = async (id, expenseData, userId) => {
+  const trip = await Trip.findOneAndUpdate(
+    { _id: id, $or: [{ user: userId }, { collaborators: userId }] },
+    { $push: { "budget.expenses": expenseData } },
+    { returnDocument: 'after', new: true }
+  );
+  if (!trip) throw new NotFoundError("Trip not found");
+  return trip;
+};
+
 export const inviteCollaborator = async (id, userId, collaboratorEmails) => {
   const trip = await getOne(id, userId);
+
+  if (trip.role !== "owner") {
+    throw new ValidationError("Only the trip owner can invite collaborators");
+  }
 
   if (!collaboratorEmails || collaboratorEmails.length === 0) {
     throw new ValidationError("At least one collaborator email is required");

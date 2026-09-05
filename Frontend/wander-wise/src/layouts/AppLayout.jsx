@@ -1,16 +1,11 @@
-import Footer from '@/components/landingComponents/Footer'
-import Navbar from '@/components/landingComponents/Navbar'
-import AppNavbar from '@/components/shared/AppNavbar'
-import React from 'react'
 import { Outlet } from 'react-router-dom'
+import AppNavbar from '../components/shared/AppNavbar'
 
 const AppLayout = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-slate-50">
         <AppNavbar />
         <Outlet />
-        <Footer />
-
     </div>
   )
 }

@@ -1,17 +1,23 @@
 import api from '@/api/axios';
 import { Button } from '@/components/ui/button';
 import React from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner';
+import useAuth from '@/hooks/useAuth';
 
 const AcceptInvite = () => {
 
     const navigate = useNavigate();
+    const { user } = useAuth();
 
     const { tripId } = useParams();
 
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
+
+    if (!user) {
+        return <Navigate to={`/login?redirect=/trips/${tripId}/invite/accept?token=${token}`} />;
+    }
 
     const accept = async () => {
         try {
@@ -31,7 +37,7 @@ const AcceptInvite = () => {
   return (
     <div className='w-full h-90 flex items-center justify-center'>
 
-        <Button onClick={accept}>Accept</Button>
+        <Button onClick={accept} className="bg-amber-500 hover:bg-amber-600 text-white cursor-pointer">Accept Invitation</Button>
 
     </div>
   )

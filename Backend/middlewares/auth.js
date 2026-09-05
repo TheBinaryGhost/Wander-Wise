@@ -10,6 +10,10 @@ export const authMiddleware = (req, res, next) => {
   if (!token || type !== "Bearer") {
     return res.status(401).json({ message: "Unauthorized" });
   }
-  req.user = verifyAccessToken(token);
-  next();
+  try {
+    req.user = verifyAccessToken(token);
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid or expired token" });
+  }
 };

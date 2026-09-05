@@ -36,8 +36,8 @@ const Itinerary = () => {
       {!data || data.length === 0 ? (
         <Card className="py-16">
           <CardContent className="flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
-              <FolderOpen className="w-8 h-8 text-blue-500" />
+            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mb-4">
+              <FolderOpen className="w-8 h-8 text-amber-500" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No trips yet</h3>
             <p className="text-gray-500 mb-6 max-w-sm">
@@ -53,7 +53,7 @@ const Itinerary = () => {
           {data.map((trip) => (
             <Card key={trip._id} className="group hover:shadow-lg transition-shadow duration-200">
               <CardHeader className="pb-3">
-                <CardTitle className="text-xl group-hover:text-blue-600 transition-colors">
+                <CardTitle className="text-xl group-hover:text-amber-600 transition-colors">
                   {trip.title}
                 </CardTitle>
                 <CardDescription className="flex items-center gap-1">
@@ -69,7 +69,7 @@ const Itinerary = () => {
                     <span className="text-gray-400">budget</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
-                    <DollarSign className="w-4 h-4 text-red-500" />
+                    <DollarSign className="w-4 h-4 text-orange-500" />
                     <span className="font-medium">${trip.budget.spent}</span>
                     <span className="text-gray-400">spent</span>
                   </div>

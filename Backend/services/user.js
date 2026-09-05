@@ -30,9 +30,10 @@ export const getUserByEmail = async (email) => {
 }
 
 export const update = async (_id, data) => {
+    const allowedFields = { name: data.name, email: data.email, password: data.password };
     const user = await User.findByIdAndUpdate(
         _id,
-        data,
+        allowedFields,
         {
             returnDocument: 'after',
             projection: {

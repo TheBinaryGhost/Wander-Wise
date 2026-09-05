@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import * as z from "zod"
 import {
@@ -102,9 +101,9 @@ const TripForm = ({tripData}) => {
 
   return (
     <form onSubmit={form.handleSubmit( tripData ? onEdit : onSubmit )} className="mt-16 p-4 md:p-8 lg:p-12">
-      <Card className="w-full md:w-2/3 lg:w-1/2 mx-auto">
+      <Card className="w-full md:w-2/3 lg:w-1/2 mx-auto border-slate-200 shadow-sm">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-slate-800">
             {tripData ? "Edit your trip": "Create a new Trip"}
           </CardTitle>
           <CardDescription>Fill in the details for your trip</CardDescription>
@@ -147,7 +146,7 @@ const TripForm = ({tripData}) => {
             )}
           />
 
-          <div className="grid grid-cols-2 gap-4 border border-gray-300 rounded-lg p-4">
+          <div className="grid grid-cols-2 gap-4 border border-slate-200 rounded-xl p-4">
             <Controller
               name="startDate"
               control={form.control}
@@ -184,10 +183,10 @@ const TripForm = ({tripData}) => {
           </div>
 
 
-          <div className="border border-gray-300 rounded-lg p-4 space-y-4">
+          <div className="border border-slate-200 rounded-xl p-4 space-y-4">
             <div className="flex items-center justify-between mb-2">
-              <h3 className='text-lg font-medium'>Destinations</h3>
-              <Button onClick={() => { append(" ") }} variant="outline" type="button" size="sm">Add Destination</Button>
+              <h3 className='text-lg font-medium text-slate-800'>Destinations</h3>
+              <Button onClick={() => { append(" ") }} variant="outline" type="button" size="sm" className="border-amber-300 text-amber-600 hover:bg-amber-50 cursor-pointer">Add Destination</Button>
             </div>
             {
               fields.map((item, index) => {
@@ -215,7 +214,7 @@ const TripForm = ({tripData}) => {
             }
           </div>
 
-          <div className="grid grid-cols-2 gap-4 border border-gray-300 rounded-lg p-4">
+          <div className="grid grid-cols-2 gap-4 border border-slate-200 rounded-xl p-4">
             <Controller
               name="budget.total"
               control={form.control}
@@ -256,7 +255,7 @@ const TripForm = ({tripData}) => {
 
         </CardContent>
         <CardFooter>
-          <Button type="submit">
+          <Button type="submit" className="bg-amber-500 hover:bg-amber-600 text-white cursor-pointer">
             {tripData? "Update Trip": "Create Trip"}
           </Button>
         </CardFooter>

@@ -1,16 +1,17 @@
-import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
-import { Calendar, Clock, DollarSign, Edit, MapPin, Trash2, User, Users } from 'lucide-react'
+import { Calendar, Clock, DollarSign, Edit, MapPin, Trash2, Users } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { Progress } from '../ui/progress'
 import api from '@/api/axios'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { formatDate } from '@/lib/formatter'
+import InviteForm from './InviteForm'
 
 const TripInfo = ({ trip }) => {
     const navigate = useNavigate();
+    const isOwner = trip.role === "owner";
 
     const deleteTrip = async () => {
         try {
@@ -57,11 +58,15 @@ const TripInfo = ({ trip }) => {
     return (
         <Card className="mb-6">
             <CardHeader>
-                <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between">
                     <div>
                         <CardTitle className="text-3xl font-bold text-gray-900 mb-2">{trip.title}</CardTitle>
                         <CardDescription className="text-lg">{trip.description}</CardDescription>
+                        <Badge variant={isOwner ? "default" : "secondary"} className="mt-2">
+                            {isOwner ? "Owner" : "Collaborator"}
+                        </Badge>
                     </div>
+                    {isOwner && (
                     <div className="flex items-center space-x-4">
                         <a href={`/trips/edit/${trip._id}`}>
                             <Button variant="outline" size="sm">
@@ -74,22 +79,23 @@ const TripInfo = ({ trip }) => {
                             Delete
                         </Button>
                     </div>
+                    )}
                 </div>
             </CardHeader>
             <CardContent className="space-y-6">
                 {/* Trip Status */}
-                <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                <div className="flex items-center justify-between p-4 bg-amber-50 rounded-lg">
                     <div className="flex items-center space-x-3">
-                        <Clock className="h-6 w-6 text-blue-600" />
+                        <Clock className="h-6 w-6 text-amber-600" />
                         <div>
-                            <p className="font-semibold text-blue-900">
+                            <p className="font-semibold text-amber-900">
                                 {daysUntilTrip > 0
                                     ? `${daysUntilTrip} days until departure`
                                     : daysUntilTrip === 0
                                         ? "Departing today!"
                                         : "Trip in progress"}
                             </p>
-                            <p className="text-sm text-blue-700">{tripDuration} day trip</p>
+                            <p className="text-sm text-amber-700">{tripDuration} day trip</p>
                         </div>
                     </div>
                     <Badge variant={daysUntilTrip > 0 ? "secondary" : "default"}>
@@ -122,7 +128,7 @@ const TripInfo = ({ trip }) => {
                 {/* Destinations */}
                 <div className='border-b-2 pb-8'>
                     <div className="flex items-center space-x-2 mb-3">
-                        <MapPin className="h-5 w-5 text-blue-600" />
+                        <MapPin className="h-5 w-5 text-amber-600" />
                         <h3 className="text-lg font-semibold">Destinations</h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -206,50 +212,8 @@ const TripInfo = ({ trip }) => {
                     </div>
                 )}
 
-                {/* Files */}
-                {/* {trip.files.length > 0 && (
-                        <div>
-                            <div className="flex items-center space-x-2 mb-3">
-                                <FileText className="h-5 w-5 text-orange-600" />
-                                <h3 className="text-lg font-semibold">Files & Documents</h3>
-                            </div>
-                            <div className="grid md:grid-cols-2 gap-3">
-                                {trip.files.map((file, index) => {
-                                    if (checkImage(file.url)) {
-                                        return (
-                                            <div key={index} className='relative'>
-                                                <img src={file.url} alt={file._id} className='w-full' />
-
-                                                <Button variant="icon" className="absolute top-4 right-4  text-red-600 hover:text-white hover:bg-red-500" onClick={() => deleteFile(file.publicId)}>
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        )
-                                    }
-                                    else {
-                                        return (
-                                            <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                                                <div className="flex items-center space-x-2">
-                                                    <FileText className="h-4 w-4 text-gray-400" />
-                                                    <span className="text-xs">{file._id}</span>
-                                                </div>
-                                                <a href={file.url} target='_blank'>
-                                                    <Button variant="ghost" size="sm">
-                                                        <ExternalLink className="h-4 w-4" />
-                                                    </Button>
-                                                </a>
-                                            </div>
-                                        )
-                                    }
-
-                                }
-
-                                )
-
-                                }
-                            </div>
-                        </div>
-                    )} */}
+                {/* Invite Collaborators - Owner only */}
+                {isOwner && <InviteForm tripId={trip._id} />}
             </CardContent>
         </Card>
     )

@@ -44,9 +44,19 @@ export const update = async (id, userId, tripId, data) => {
     }
   }
 
+  const allowedFields = {
+    title: data.title,
+    description: data.description,
+    date: data.date,
+    startTime: data.startTime,
+    endTime: data.endTime,
+    location: data.location,
+    category: data.category,
+    notes: data.notes,
+  };
   const itinerary = await Itinerary.findOneAndUpdate(
     { _id: id, trip: tripId },
-    data,
+    allowedFields,
     {
       returnDocument: 'after',
     }
@@ -62,6 +72,19 @@ export const update = async (id, userId, tripId, data) => {
 export const destroy = async (id, userId, tripId) => {
   await getTrip(tripId, userId);
   const itinerary = await Itinerary.findOneAndDelete({ _id: id, trip: tripId });
+  if (!itinerary) {
+    throw new NotFoundError("Itinerary not found");
+  }
+  return itinerary;
+};
+
+export const addActivity = async (id, activityData, userId, tripId) => {
+  await getTrip(tripId, userId);
+  const itinerary = await Itinerary.findOneAndUpdate(
+    { _id: id, trip: tripId },
+    { $push: { activities: activityData } },
+    { returnDocument: 'after' }
+  );
   if (!itinerary) {
     throw new NotFoundError("Itinerary not found");
   }

@@ -14,8 +14,13 @@ export const createItineraryValidator = [
     .trim()
     .notEmpty()
     .withMessage("Date is required")
-    .isDate()
-    .withMessage("Date must be a date"),
+    .custom((value) => {
+      const date = new Date(value);
+      if (isNaN(date.getTime())) {
+        throw new Error("Date must be a valid date");
+      }
+      return true;
+    }),
   body("activities").isArray().withMessage("Activities must be an array"),
   body("activities.*.name")
     .trim()
@@ -26,11 +31,12 @@ export const createItineraryValidator = [
     .notEmpty()
     .withMessage("Activity time is required"),
   body("activities.*.notes")
-    .trim()
+    .optional()
     .isArray()
     .withMessage("Notes must be an array"),
   body("activities.*.notes.*")
     .trim()
+    .optional()
     .notEmpty()
     .withMessage("Note is required"),
   validate,
@@ -45,12 +51,20 @@ export const updateItineraryValidator = [
     .withMessage("Itinerary must be a valid MongoDB ID"),
   body("title").trim().optional(),
   body("description").trim().optional(),
-  body("date").trim().optional().isDate().withMessage("Date must be a date"),
+  body("date")
+    .trim()
+    .optional()
+    .custom((value) => {
+      const date = new Date(value);
+      if (isNaN(date.getTime())) {
+        throw new Error("Date must be a valid date");
+      }
+      return true;
+    }),
   body("activities").isArray().withMessage("Activities must be an array"),
   body("activities.*.name").trim().optional(),
   body("activities.*.time").trim().optional(),
   body("activities.*.notes")
-    .trim()
     .optional()
     .isArray()
     .withMessage("Notes must be an array"),

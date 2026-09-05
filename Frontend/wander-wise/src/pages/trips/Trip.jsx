@@ -64,8 +64,8 @@ const Trip = () => {
       {!data || data.length === 0 ? (
         <Card className="py-16">
           <CardContent className="flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
-              <FolderOpen className="w-8 h-8 text-blue-500" />
+            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mb-4">
+              <FolderOpen className="w-8 h-8 text-amber-500" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No trips yet</h3>
             <p className="text-gray-500 mb-6 max-w-sm">
@@ -83,7 +83,7 @@ const Trip = () => {
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
-                    <CardTitle className="text-xl truncate group-hover:text-blue-600 transition-colors">
+                    <CardTitle className="text-xl truncate group-hover:text-amber-600 transition-colors">
                       <Link to={`/trips/${trip._id}`}>{trip.title}</Link>
                     </CardTitle>
                     <CardDescription className="flex items-center gap-1 mt-1">
@@ -102,16 +102,20 @@ const Trip = () => {
                         <DropdownMenuItem asChild>
                           <Link to={`/trips/${trip._id}`} className="w-full">View</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link to={`/trips/edit/${trip._id}`} className="w-full">Edit</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          onClick={() => handleDelete(trip._id)}
-                          className="text-red-600 focus:text-red-600 focus:bg-red-50"
-                        >
-                          Delete
-                        </DropdownMenuItem>
+                        {trip.role === "owner" && (
+                          <>
+                            <DropdownMenuItem asChild>
+                              <Link to={`/trips/edit/${trip._id}`} className="w-full">Edit</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                              onClick={() => handleDelete(trip._id)}
+                              className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          </>
+                        )}
                       </DropdownMenuGroup>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -132,10 +136,10 @@ const Trip = () => {
                 </div>
                 {trip.destinations && trip.destinations.length > 0 && (
                   <div className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <MapPin className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
                     <div className="flex flex-wrap gap-1">
                       {trip.destinations.slice(0, 3).map((destination, idx) => (
-                        <span key={idx} className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs">
+                        <span key={idx} className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs">
                           {destination}
                         </span>
                       ))}

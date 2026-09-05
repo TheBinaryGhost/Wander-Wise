@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { Card, CardFooter, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card'
@@ -15,8 +14,8 @@ const activitySchema = z.object({
     name: z.string().min(5, "Must be atleast 5 characters"),
     time: z.string().min(5, "Must be atleast 5 characters"),
     notes: z.array(
-        z.string().min(5, "Must be at least 5 characters")
-    )
+        z.string().min(1, "Note cannot be empty")
+    ).optional().default([])
 })
 
 const formSchema = z.object({
@@ -138,22 +137,44 @@ const ItineraryForm = ({itineraryData}) => {
 
     const onSubmit = async (data) => {
         try{
-            const response = await api.post(`/${tripId}/itineraries`, data);
+            const cleanedData = {
+                ...data,
+                activities: data.activities.map(activity => {
+                    const notes = (activity.notes || []).filter(note => note && note.trim() !== "");
+                    return {
+                        ...activity,
+                        ...(notes.length > 0 ? { notes } : {})
+                    };
+                })
+            };
+            const response = await api.post(`/${tripId}/itineraries`, cleanedData);
 
             if(response.status === 201){
                 toast.success("Itinerary Created Successfully");
                 navigate(`/itinerary/${tripId}`);
             }else{
-                toast.error( response.data.message || "Error creating itinerary");
+                const errMsg = response.data?.errors?.map(e => `${e.field}: ${e.message}`).join(', ') || response.data?.message || "Error creating itinerary";
+                toast.error(errMsg);
             }
         }catch(error){
-            toast.error( error.message || "Some error occured");
+            const errMsg = error.response?.data?.errors?.map(e => `${e.field}: ${e.message}`).join(', ') || error.response?.data?.message || error.message || "Some error occured";
+            toast.error(errMsg);
         }
     }
 
     const onEdit = async (data) => {
         try{
-            const response = await api.patch(`/${tripId}/itineraries/${itineraryData._id}`, data);
+            const cleanedData = {
+                ...data,
+                activities: data.activities.map(activity => {
+                    const notes = (activity.notes || []).filter(note => note && note.trim() !== "");
+                    return {
+                        ...activity,
+                        ...(notes.length > 0 ? { notes } : {})
+                    };
+                })
+            };
+            const response = await api.patch(`/${tripId}/itineraries/${itineraryData._id}`, cleanedData);
 
             if(response.status === 200){
                 toast.success("Itinerary Updated Successfully");
@@ -253,7 +274,7 @@ const ItineraryForm = ({itineraryData}) => {
 
                 </CardContent>
                 <CardFooter>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" className="bg-amber-500 hover:bg-amber-600 text-white cursor-pointer">Submit</Button>
                 </CardFooter>
             </Card>
         </form>

@@ -96,15 +96,15 @@ const Profile = () => {
     return (
         <div className="mt-16 p-4 md:p-8 lg:p-12 space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
-                <p className="text-gray-500 mt-1">Manage your account settings.</p>
+                <h1 className="text-3xl font-bold text-slate-800">Profile</h1>
+                <p className="text-slate-500 mt-1">Manage your account settings.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card>
+                <Card className="border-slate-200 shadow-sm">
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <User className="w-5 h-5" />
+                        <CardTitle className="flex items-center gap-2 text-slate-800">
+                            <User className="w-5 h-5 text-amber-500" />
                             Personal Information
                         </CardTitle>
                         <CardDescription>Update your name and email address.</CardDescription>
@@ -148,7 +148,7 @@ const Profile = () => {
                             />
                         </CardContent>
                         <CardFooter>
-                            <Button type="submit" disabled={loading}>
+                            <Button type="submit" disabled={loading} className="bg-amber-500 hover:bg-amber-600 text-white cursor-pointer">
                                 {loading ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -162,9 +162,9 @@ const Profile = () => {
                     </form>
                 </Card>
 
-                <Card>
+                <Card className="border-slate-200 shadow-sm">
                     <CardHeader>
-                        <CardTitle>Change Password</CardTitle>
+                        <CardTitle className="text-slate-800">Change Password</CardTitle>
                         <CardDescription>Update your password to keep your account secure.</CardDescription>
                     </CardHeader>
                     <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}>
@@ -206,7 +206,7 @@ const Profile = () => {
                             />
                         </CardContent>
                         <CardFooter>
-                            <Button type="submit" variant="outline" disabled={passwordLoading}>
+                            <Button type="submit" variant="outline" disabled={passwordLoading} className="border-amber-300 text-amber-600 hover:bg-amber-50 cursor-pointer">
                                 {passwordLoading ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />

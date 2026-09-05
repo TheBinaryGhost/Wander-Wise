@@ -84,7 +84,7 @@ const ItineraryDetails = () => {
                           <Link className="w-full" to={`/itinerary/edit/${tripId}/${item._id}`}>Edit</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                          className="text-red-600"
+                          className="text-orange-600"
                           onClick={() => { handleDelete(item._id) }}
                         >
                           Delete

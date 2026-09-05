@@ -22,15 +22,6 @@ const useApi = (endpoint, options = {}, deps = []) => {
         if (mounted) setLoading(false);
       });
 
-    // try{
-    //   const response = await api.get(endpoint, options);
-    //   if(mounted) setData(response.data);
-    // }catch(error){
-    //   if(mounted) setError(error)
-    // }finally{
-    //   if(mounted) setLoading(false);
-    // }
-
     return () => {
       mounted = false;
     };

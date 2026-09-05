@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from '../components/landingComponents/Navbar'
-import Hero from '../components/landingComponents/Hero'
-import Features from '../components/landingComponents/Features'
-import About from '../components/landingComponents/About'
-import Testimonials from '../components/landingComponents/Testimonials'
-import Footer from '../components/landingComponents/Footer'
+import Navbar from '../components/landing/Navbar'
+import Hero from '../components/landing/Hero'
+import Features from '../components/landing/Features'
+import About from '../components/landing/About'
+import Testimonials from '../components/landing/Testimonials'
+import Footer from '../components/landing/Footer'
 
 const Landing = () => {
   return (

@@ -101,14 +101,15 @@ const BaggageDetails = () => {
 
     return (
         <div className="mt-16 p-4 md:p-8 lg:p-12 space-y-6">
-            <div className="flex items-center justify-between">
+                <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-xl p-6 mb-6">
+                <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900">Baggage List</h1>
                     <p className="text-gray-500 mt-1">All the items you need for this trip.</p>
                 </div>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button>
+                        <Button className="bg-amber-500 hover:bg-amber-600 text-white">
                             <Plus className="w-4 h-4 mr-2" />
                             Add Baggage
                         </Button>
@@ -140,11 +141,12 @@ const BaggageDetails = () => {
                                 )}
                             />
 
-                            <Button type="submit" className={"mt-4 w-full"}>Submit</Button>
+                            <Button type="submit" className={"mt-4 w-full bg-amber-500 hover:bg-amber-600 text-white"}>Submit</Button>
                         </form>
 
                     </DialogContent>
                 </Dialog>
+                </div>
             </div>
 
             <Card>
@@ -158,7 +160,7 @@ const BaggageDetails = () => {
                             {data.map((item) => (
                                 <div
                                     key={item._id}
-                                    className={`${item.completed ? "bg-primary/10 border-primary/20" : ""} flex items-center justify-between border border-gray-200 p-4 rounded-md transition-colors`}
+                                    className={`${item.completed ? "bg-amber-100 border-amber-200" : ""} flex items-center justify-between border border-gray-200 p-4 rounded-md transition-colors`}
                                 >
                                     <div className='flex gap-3 items-center'>
                                         <Checkbox
@@ -170,7 +172,7 @@ const BaggageDetails = () => {
                                     <Button
                                         size='icon'
                                         variant='ghost'
-                                        className="text-gray-400 hover:text-red-500"
+                                        className="text-gray-400 hover:text-orange-500"
                                         onClick={() => { onDelete(item._id) }}
                                     >
                                         <Trash2 className="w-4 h-4" />

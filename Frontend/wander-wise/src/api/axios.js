@@ -4,9 +4,6 @@ const baseURL = import.meta.env.VITE_API_BASE_URL
 
 const api = axios.create({
   baseURL,
-  validateStatus: function (status) {
-    return (status >= 200 && status < 500)
-  },
 });
 
 api.interceptors.request.use((config) => {

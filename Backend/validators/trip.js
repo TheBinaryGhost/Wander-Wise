@@ -110,4 +110,27 @@ export const updateTripValidator = [
     .optional()
     .isNumeric()
     .withMessage("Expense amount must be a number"),
+  validate,
+];
+
+export const addExpenseValidator = [
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("Expense name is required"),
+  body("amount")
+    .trim()
+    .notEmpty()
+    .withMessage("Expense amount is required")
+    .isNumeric()
+    .withMessage("Expense amount must be a number")
+    .custom((value) => {
+      if (Number(value) <= 0) throw new ValidationError("Expense amount must be positive");
+      return true;
+    }),
+  body("date")
+    .optional()
+    .isISO8601()
+    .withMessage("Date must be a valid date"),
+  validate,
 ];

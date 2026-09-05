@@ -108,7 +108,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full py-24">
-        <Loader2 className="animate-spin h-10 w-10 text-primary" />
+        <Loader2 className="animate-spin h-10 w-10 text-amber-500" />
       </div>
     )
   }
@@ -120,97 +120,111 @@ const Dashboard = () => {
   return (
     <div className="mt-16 space-y-6 p-4 md:p-8 lg:p-12">
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Card>
+        <Card className="border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <Clock3 className="h-5 w-5 text-slate-600" />
-              <CardTitle>Total Trips</CardTitle>
+              <div className="bg-amber-100 p-2 rounded-lg">
+                <Clock3 className="h-5 w-5 text-amber-600" />
+              </div>
+              <CardTitle className="text-slate-800">Total Trips</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-semibold">{stats.totalTrips}</p>
+            <p className="text-4xl font-semibold text-slate-800">{stats.totalTrips}</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-slate-600" />
-              <CardTitle>Upcoming Trips</CardTitle>
+              <div className="bg-orange-100 p-2 rounded-lg">
+                <CalendarDays className="h-5 w-5 text-orange-600" />
+              </div>
+              <CardTitle className="text-slate-800">Upcoming Trips</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-semibold">{stats.upcomingTrips}</p>
+            <p className="text-4xl font-semibold text-slate-800">{stats.upcomingTrips}</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <CheckCircle className="h-5 w-5 text-slate-600" />
-              <CardTitle>Ongoing Trips</CardTitle>
+              <div className="bg-green-100 p-2 rounded-lg">
+                <CheckCircle className="h-5 w-5 text-green-600" />
+              </div>
+              <CardTitle className="text-slate-800">Ongoing Trips</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-semibold">{stats.ongoingTrips}</p>
+            <p className="text-4xl font-semibold text-slate-800">{stats.ongoingTrips}</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <Users className="h-5 w-5 text-slate-600" />
-              <CardTitle>Completed Trips</CardTitle>
+              <div className="bg-slate-100 p-2 rounded-lg">
+                <Users className="h-5 w-5 text-slate-600" />
+              </div>
+              <CardTitle className="text-slate-800">Completed Trips</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-semibold">{stats.completedTrips}</p>
+            <p className="text-4xl font-semibold text-slate-800">{stats.completedTrips}</p>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-1 border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <DollarSign className="h-5 w-5 text-slate-600" />
-              <CardTitle>Total Spent</CardTitle>
+              <div className="bg-amber-100 p-2 rounded-lg">
+                <DollarSign className="h-5 w-5 text-amber-600" />
+              </div>
+              <CardTitle className="text-slate-800">Total Spent</CardTitle>
             </div>
             <CardDescription>Sum of spent budgets across all trips.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-semibold">${stats.totalSpent}</p>
+            <p className="text-4xl font-semibold text-slate-800">${stats.totalSpent}</p>
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-slate-600" />
-              <CardTitle>Destinations Visited</CardTitle>
+              <div className="bg-orange-100 p-2 rounded-lg">
+                <MapPin className="h-5 w-5 text-orange-600" />
+              </div>
+              <CardTitle className="text-slate-800">Destinations Visited</CardTitle>
             </div>
             <CardDescription>Unique destinations across your trips.</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
             {allDestinationLabels.length > 0 ? (
               allDestinationLabels.map((destination) => (
-                <Badge key={destination} variant="outline" className="px-3 py-1">
+                <Badge key={destination} variant="outline" className="px-3 py-1 border-amber-200 text-amber-700">
                   {destination}
                 </Badge>
               ))
             ) : (
-              <p className="text-sm text-gray-500">No destinations added yet.</p>
+              <p className="text-sm text-slate-500">No destinations added yet.</p>
             )}
           </CardContent>
         </Card>
       </div>
 
       <div className="grid gap-4 xl:grid-cols-3">
-        <Card className="xl:col-span-2">
+        <Card className="xl:col-span-2 border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-slate-600" />
-              <CardTitle>Trip Dates</CardTitle>
+              <div className="bg-amber-100 p-2 rounded-lg">
+                <CalendarDays className="h-5 w-5 text-amber-600" />
+              </div>
+              <CardTitle className="text-slate-800">Trip Dates</CardTitle>
             </div>
             <CardDescription>Start and end date for each trip.</CardDescription>
           </CardHeader>
@@ -219,10 +233,10 @@ const Dashboard = () => {
               <div key={trip._id} className="space-y-2 border-b border-slate-200 pb-4 last:border-b-0 last:pb-0">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="font-semibold">{trip.title}</p>
+                    <p className="font-semibold text-slate-800">{trip.title}</p>
                     <p className="text-sm text-slate-500">{trip.description}</p>
                   </div>
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700">
+                  <span className="rounded-full bg-amber-50 text-amber-700 px-3 py-1 text-sm font-medium">
                     {formatDate(trip.startDate)} - {formatDate(trip.endDate)}
                   </span>
                 </div>
@@ -240,11 +254,13 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-slate-200 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <Users className="h-5 w-5 text-slate-600" />
-              <CardTitle>Collaborators</CardTitle>
+              <div className="bg-slate-100 p-2 rounded-lg">
+                <Users className="h-5 w-5 text-slate-600" />
+              </div>
+              <CardTitle className="text-slate-800">Collaborators</CardTitle>
             </div>
             <CardDescription>Loaded from backend for each collaborator and trip creator.</CardDescription>
           </CardHeader>
@@ -261,11 +277,11 @@ const Dashboard = () => {
                 const user = userMap[id] || { _id: id, name: 'Unknown', email: '' }
                 return (
                   <div key={id} className="flex items-center gap-3 rounded-lg border border-slate-200 p-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-600">
                       <User className="h-4 w-4" />
                     </div>
                     <div className="text-sm">
-                      <p className="font-medium">{user.name || id}</p>
+                      <p className="font-medium text-slate-800">{user.name || id}</p>
                       <p className="text-slate-500">{user.email || 'No email available'}</p>
                     </div>
                   </div>

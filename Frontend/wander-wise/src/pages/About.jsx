@@ -1,106 +1,109 @@
-import Navbar from '../components/landingComponents/Navbar'
-import { Card, CardContent } from '@/components/ui/card'
-import { Compass, Globe, Map, Users } from 'lucide-react'
-
-const features = [
-    {
-        icon: Compass,
-        title: 'Plan Your Trip',
-        description: 'Create detailed itineraries for your adventures with day-by-day planning and activity scheduling.'
-    },
-    {
-        icon: Map,
-        title: 'Manage Baggage',
-        description: 'Keep track of what to pack for each trip with organized baggage lists and categories.'
-    },
-    {
-        icon: Users,
-        title: 'Collaborate',
-        description: 'Invite friends and family to collaborate on trip planning and share the excitement.'
-    },
-    {
-        icon: Globe,
-        title: 'Explore Destinations',
-        description: 'Discover new places and get inspired for your next adventure around the world.'
-    }
-]
+import { Link } from "react-router-dom";
+import { CheckCircle, Globe, Heart, Shield, Users } from "lucide-react";
 
 const About = () => {
     return (
-        <div className="min-h-screen bg-gray-50">
-            <Navbar />
+        <div className="bg-white min-h-screen">
+            {/* Hero */}
+            <section className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 py-20 px-4">
+                <div className="max-w-6xl mx-auto text-center">
+                    <span className="inline-block bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+                        Our Story
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-bold text-slate-800 mb-6">
+                        About <span className="text-amber-500">WanderWise</span>
+                    </h1>
+                    <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
+                        We believe travel should be about the experience, not the stress of planning.
+                        WanderWise was born from a simple idea: make trip planning effortless.
+                    </p>
+                </div>
+            </section>
 
-            <div className="pt-24 pb-16 px-4 md:px-12">
-                <div className="max-w-4xl mx-auto">
-                    {/* Hero Section */}
-                    <div className="text-center mb-12">
-                        <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4">
-                            <Compass className="w-8 h-8 text-blue-600" />
-                        </div>
-                        <h1 className="text-4xl font-bold text-gray-900 mb-4">About WanderWise</h1>
-                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Your ultimate travel companion for planning, organizing, and sharing amazing travel experiences.
+            {/* Mission */}
+            <section className="max-w-6xl mx-auto px-4 py-16">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 className="text-3xl font-bold text-slate-800 mb-6">
+                            Our Mission
+                        </h2>
+                        <p className="text-slate-600 leading-relaxed mb-6">
+                            WanderWise was built by travelers, for travelers. We understand the
+                            overwhelm of planning trips, managing budgets, and keeping track of
+                            every detail. Our mission is to give you one beautiful platform where
+                            everything just works.
                         </p>
-                    </div>
-
-                    {/* Mission Statement */}
-                    <Card className="mb-12">
-                        <CardContent className="p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                            <p className="text-gray-600 leading-relaxed">
-                                WanderWise was created to make travel planning simple, enjoyable, and collaborative.
-                                We believe that the best trips start with great planning, and we're here to help you
-                                create unforgettable memories. Whether you're a solo traveler, a couple, or a group
-                                of friends, WanderWise has everything you need to plan your perfect adventure.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    {/* Features Grid */}
-                    <div className="mb-12">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">What We Offer</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {features.map((feature, index) => (
-                                <Card key={index} className="hover:shadow-lg transition-shadow">
-                                    <CardContent className="p-6">
-                                        <div className="flex items-start gap-4">
-                                            <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                                                <feature.icon className="w-6 h-6 text-blue-600" />
-                                            </div>
-                                            <div>
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                                                    {feature.title}
-                                                </h3>
-                                                <p className="text-gray-600">
-                                                    {feature.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                        <div className="space-y-3">
+                            {[
+                                "Intuitive trip planning interface",
+                                "Real-time budget management",
+                                "Smart packing recommendations",
+                                "Collaborative trip sharing",
+                            ].map((item) => (
+                                <div key={item} className="flex items-center gap-3">
+                                    <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                                    <span className="text-slate-700 font-medium">{item}</span>
+                                </div>
                             ))}
                         </div>
                     </div>
-
-                    {/* Call to Action */}
-                    <Card className="bg-blue-600 text-white">
-                        <CardContent className="p-8 text-center">
-                            <h2 className="text-2xl font-bold mb-4">Ready to Start Your Adventure?</h2>
-                            <p className="text-blue-100 mb-6">
-                                Join thousands of travelers who trust WanderWise to plan their perfect trips.
-                            </p>
-                            <a
-                                href="/register"
-                                className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors"
-                            >
-                                Get Started for Free
-                            </a>
-                        </CardContent>
-                    </Card>
+                    <div className="grid grid-cols-2 gap-4">
+                        {[
+                            { icon: Globe, label: "Explore", desc: "Discover new places", color: "bg-amber-50 text-amber-600" },
+                            { icon: Shield, label: "Track", desc: "Monitor budgets", color: "bg-orange-50 text-orange-600" },
+                            { icon: Heart, label: "Organize", desc: "Plan everything", color: "bg-red-50 text-red-600" },
+                            { icon: Users, label: "Share", desc: "Travel together", color: "bg-green-50 text-green-600" },
+                        ].map((item) => (
+                            <div key={item.label} className={`${item.color} rounded-2xl p-6 text-center`}>
+                                <item.icon className="w-8 h-8 mx-auto mb-3" />
+                                <p className="font-bold text-slate-800">{item.label}</p>
+                                <p className="text-xs text-slate-500 mt-1">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </div>
-    )
-}
+            </section>
 
-export default About
+            {/* Values */}
+            <section className="bg-slate-50 py-16 px-4">
+                <div className="max-w-6xl mx-auto">
+                    <h2 className="text-3xl font-bold text-slate-800 text-center mb-12">
+                        Why Choose <span className="text-amber-500">WanderWise</span>
+                    </h2>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { title: "Simple & Beautiful", desc: "A clean, intuitive interface that makes planning feel like part of the adventure, not a chore." },
+                            { title: "All-in-One", desc: "Itineraries, budgets, packing lists, and more — everything you need in a single platform." },
+                            { title: "Built for Travelers", desc: "We travel too. Every feature is designed from real travel experience and genuine need." },
+                        ].map((item) => (
+                            <div key={item.title} className="bg-white rounded-2xl p-8 border border-slate-100 hover:shadow-lg transition-shadow">
+                                <h3 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h3>
+                                <p className="text-slate-500 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA */}
+            <section className="py-16 px-4">
+                <div className="max-w-3xl mx-auto text-center">
+                    <h2 className="text-3xl font-bold text-slate-800 mb-4">
+                        Ready to Start Your Journey?
+                    </h2>
+                    <p className="text-slate-600 mb-8">
+                        Join thousands of travelers who plan smarter with WanderWise.
+                    </p>
+                    <Link
+                        to="/register"
+                        className="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-3 rounded-xl transition-colors"
+                    >
+                        Get Started Free
+                    </Link>
+                </div>
+            </section>
+        </div>
+    );
+};
+
+export default About;
