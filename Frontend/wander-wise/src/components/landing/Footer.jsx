@@ -4,20 +4,12 @@ const Footer = () => {
     return (
         <footer className="bg-slate-900 text-slate-400">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <div className="col-span-2 md:col-span-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="col-span-1">
                         <h3 className="text-2xl font-bold text-amber-500 mb-4">WanderWise</h3>
                         <p className="text-sm leading-relaxed">
                             Making travel planning effortless, one trip at a time.
                         </p>
-                    </div>
-                    <div>
-                        <h4 className="font-semibold text-white mb-4">Product</h4>
-                        <ul className="space-y-2 text-sm">
-                            <li><Link to="/#features" className="hover:text-amber-400 transition-colors">Features</Link></li>
-                            <li><Link to="/about" className="hover:text-amber-400 transition-colors">About</Link></li>
-                            <li><Link to="/register" className="hover:text-amber-400 transition-colors">Pricing</Link></li>
-                        </ul>
                     </div>
                     <div>
                         <h4 className="font-semibold text-white mb-4">Support</h4>
@@ -25,13 +17,6 @@ const Footer = () => {
                             <li><Link to="/contact" className="hover:text-amber-400 transition-colors">Contact</Link></li>
                             <li><Link to="/contact" className="hover:text-amber-400 transition-colors">Help Center</Link></li>
                             <li><Link to="/contact" className="hover:text-amber-400 transition-colors">FAQ</Link></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="font-semibold text-white mb-4">Legal</h4>
-                        <ul className="space-y-2 text-sm">
-                            <li><a href="#" className="hover:text-amber-400 transition-colors">Privacy</a></li>
-                            <li><a href="#" className="hover:text-amber-400 transition-colors">Terms</a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { CheckCircle, Globe, Heart, Shield, Users } from "lucide-react";
+import Navbar from "../components/landing/Navbar";
+import Footer from "../components/landing/Footer";
 
 const About = () => {
     return (
         <div className="bg-white min-h-screen">
+            <Navbar />
             {/* Hero */}
             <section className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 py-20 px-4">
                 <div className="max-w-6xl mx-auto text-center">
@@ -102,6 +105,7 @@ const About = () => {
                     </Link>
                 </div>
             </section>
+            <Footer />
         </div>
     );
 };

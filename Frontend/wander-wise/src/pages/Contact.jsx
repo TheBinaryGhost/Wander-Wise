@@ -1,5 +1,7 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState } from "react";
+import Navbar from "../components/landing/Navbar";
+import Footer from "../components/landing/Footer";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -21,6 +23,7 @@ const Contact = () => {
 
     return (
         <div className="bg-white min-h-screen">
+            <Navbar />
             {/* Hero */}
             <section className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 py-20 px-4">
                 <div className="max-w-6xl mx-auto text-center">
@@ -166,6 +169,7 @@ const Contact = () => {
                     </div>
                 </div>
             </section>
+            <Footer />
         </div>
     );
 };
