@@ -23,7 +23,7 @@ ITINERARY_ROUTER.post(
         req.params.tripId,
         req.user,
       );
-      res.status(201).json(itinerary);
+      res.status(201).json({ data: itinerary });
     } catch (error) {
       next(error);
     }
@@ -34,9 +34,9 @@ ITINERARY_ROUTER.get("/", async (req, res, next) => {
   try {
     const itineraries = await getAll(
       req.params.tripId,
-      req.user.userId
+      req.user
     );
-    res.json(itineraries);
+    res.status(200).json({ data: itineraries });
   } catch (error) {
     next(error);
   }
@@ -49,7 +49,7 @@ ITINERARY_ROUTER.get("/:id", async (req, res, next) => {
       req.user,
       req.params.tripId
     );
-    res.json(itinerary);
+    res.status(200).json({ data: itinerary });
   } catch (error) {
     next(error);
   }
@@ -66,7 +66,7 @@ ITINERARY_ROUTER.patch(
         req.params.tripId,
         req.body,
       );
-      res.json(itinerary);
+      res.status(200).json({ data: itinerary });
     } catch (error) {
       next(error);
     }
@@ -80,7 +80,7 @@ ITINERARY_ROUTER.delete("/:id", async (req, res, next) => {
       req.user,
       req.params.tripId,
     );
-    res.json(itinerary);
+    res.status(200).json({ data: itinerary });
   } catch (error) {
     next(error);
   }

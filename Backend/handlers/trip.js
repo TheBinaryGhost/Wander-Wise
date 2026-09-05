@@ -82,11 +82,11 @@ TRIP_ROUTER.post(
   }
 );
 
-TRIP_ROUTER.get(
+TRIP_ROUTER.post(
   "/:id/invite/accept",
   async (req, res, next) => {
     try {
-      const result = await acceptInvite(req.query.token, req.user);
+      const result = await acceptInvite(req.body.token, req.user);
       res.status(200).json({ data: result });
     } catch (error) {
       next(error);

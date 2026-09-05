@@ -27,6 +27,7 @@ BAGGAGE_ROUTER.get("/:id", async (req, res, next) => {
         const baggage = await getOne(req.params.id, req.user, req.params.tripId);
         res.status(200).json({ data: baggage });
     } catch (error) {
+        next(error);
     }
 });
 

@@ -6,8 +6,8 @@ const AUTH_ROUTER = Router();
 
 AUTH_ROUTER.post("/register", createUserValidator, async (req, res, next) => {
     try {
-        const token = await register(req.body);
-        res.status(201).json({ data: { token } });
+        const { token, user } = await register(req.body);
+        res.status(201).json({ data: { token, user } });
     } catch (error) {
         next(error);
     }
@@ -15,8 +15,8 @@ AUTH_ROUTER.post("/register", createUserValidator, async (req, res, next) => {
 
 AUTH_ROUTER.post("/login", loginValidator, async (req, res, next) => {
     try {
-        const token = await login(req.body);
-        res.status(200).json({ data: { token } });
+        const { token, user } = await login(req.body);
+        res.status(200).json({ data: { token, user } });
     } catch (error) {
         next(error);
     }

@@ -1,7 +1,8 @@
 import Trip from "../models/trip.js";
 import { NotFoundError } from "../errors/not-found.js";
 import { ConflictError } from "../errors/conflict.js";
-import { generateAccessToken, verifyAccessToken } from "../config/jwt.js";
+import { ValidationError } from "../errors/validation.js";
+import { generateInviteToken, verifyInviteToken } from "../config/jwt.js";
 import sendMail from "../utils/send-mail.js";
 
 export const create = async (data, userId) => {
@@ -12,7 +13,9 @@ export const create = async (data, userId) => {
 export const getAll = async (userId) => {
   const trips = await Trip.find({
     $or: [{ user: userId }, { collaborators: userId }],
-  });
+  })
+    .populate("collaborators", ["name", "email"])
+    .populate("user", "name");
   return trips;
 };
 
@@ -33,7 +36,7 @@ export const getOne = async (id, userId) => {
 
 export const update = async (id, tripData, userId) => {
   const trip = await Trip.findOneAndUpdate(
-    { _id: id, user: userId },
+    { _id: id, $or: [{ user: userId }, { collaborators: userId }] },
     tripData,
     { returnDocument: 'after' }
   );
@@ -43,22 +46,32 @@ export const update = async (id, tripData, userId) => {
 
 export const destroy = async (id, userId) => {
   const trip = await Trip.findOneAndDelete({ _id: id, user: userId });
-  if (!trip)throw new NotFoundError("Trip not found");
+  if (!trip) throw new NotFoundError("Trip not found");
   return trip;
 };
 
 export const inviteCollaborator = async (id, userId, collaboratorEmails) => {
   const trip = await getOne(id, userId);
 
+  if (!collaboratorEmails || collaboratorEmails.length === 0) {
+    throw new ValidationError("At least one collaborator email is required");
+  }
+
+  // Prevent owner from inviting themselves
+  const ownerEmail = trip.user?.email;
+  if (ownerEmail && collaboratorEmails.includes(ownerEmail)) {
+    throw new ConflictError("Cannot invite the trip owner as a collaborator");
+  }
+
   if (
     trip.collaborators?.some((collaborator) =>
       collaboratorEmails.includes(collaborator.email)
     )
   ) {
-    throw new ConflictError("Collaborator already invited");
+    throw new ConflictError("One or more collaborators already invited");
   }
 
-  const token = await generateAccessToken({ tripId: id }, '1h');
+  const token = await generateInviteToken({ tripId: id }, '1h');
 
   const invitationLink = `${process.env.BASE_URL}/trips/${id}/invite/accept?token=${token}`;
 
@@ -74,7 +87,7 @@ export const inviteCollaborator = async (id, userId, collaboratorEmails) => {
 }
 
 export const acceptInvite = async (token, userId) => {
-  const tripId = verifyAccessToken(token);
+  const tripId = verifyInviteToken(token);
   const trip = await Trip.findOne({ _id: tripId }).populate(
     "collaborators"
   );

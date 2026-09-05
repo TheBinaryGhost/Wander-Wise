@@ -13,7 +13,7 @@ const CustomButton = ({text, color, link, isLogin}) => {
   }
 
   return (
-    <button onClick={handleClick} className="bg-blue-700 px-5 py-1.5 rounded-sm text-white cursor-pointer hover:bg-blue-400 flex items-center gap-2">
+    <button onClick={handleClick} className="bg-primary px-5 py-1.5 rounded-sm text-white cursor-pointer hover:bg-primary/70 flex items-center gap-2">
         {text} 
         {
           isLogin && <LogIn size={18} />

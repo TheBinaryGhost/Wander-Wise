@@ -5,7 +5,8 @@ import { UnauthorizedError } from "../errors/unauthorized.js";
 
 export const register = async (data) => {
     const user = await create(data);
-    return generateAccessToken({ userId: user._id });
+    const token = generateAccessToken({ userId: user._id });
+    return { token, user };
 }
 
 export const login = async (data) => {
@@ -13,5 +14,7 @@ export const login = async (data) => {
     if (!await compare(data.password, user.password)) {
         throw new UnauthorizedError();
     }
-    return generateAccessToken({ userId: user._id });
+    const token = generateAccessToken({ userId: user._id });
+    const { password, ...userWithoutPassword } = user.toObject();
+    return { token, user: userWithoutPassword };
 }

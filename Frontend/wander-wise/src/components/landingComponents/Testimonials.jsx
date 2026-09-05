@@ -1,11 +1,11 @@
-import { Star } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
 export default function Testimonials() {
   const testimonials = [
     {
       name: 'Sarah Anderson',
       role: 'Travel Enthusiast',
-      content: 'TripMaster completely changed how I plan vacations. The collaboration features made organizing a group trip with friends so much easier!',
+      content: 'WanderWise completely changed how I plan vacations. The collaboration features made organizing a group trip with friends so much easier!',
       rating: 5,
       avatar: '👩‍🦰'
     },
@@ -19,7 +19,7 @@ export default function Testimonials() {
     {
       name: 'Elena Rodriguez',
       role: 'Adventure Seeker',
-      content: 'The destination recommendations are incredibly accurate. TripMaster helped me discover hidden gems I would have never found otherwise.',
+      content: 'The destination recommendations are incredibly accurate. WanderWise helped me discover hidden gems I would have never found otherwise.',
       rating: 5,
       avatar: '👩‍🎤'
     },
@@ -37,9 +37,14 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Loved by Travelers</h2>
+          <span className='inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-4'>
+            Testimonials
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            Loved by Travelers
+          </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Join thousands of happy travelers who are already using TripMaster to plan their adventures.
+            Join thousands of happy travelers who are already using WanderWise to plan their adventures.
           </p>
         </div>
 
@@ -48,8 +53,13 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-slate-50 rounded-lg p-8 flex flex-col h-full hover:shadow-lg transition-shadow duration-300"
+              className="bg-slate-50 rounded-2xl p-8 flex flex-col h-full hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
+              {/* Quote Icon */}
+              <div className="mb-4">
+                <Quote className="w-8 h-8 text-blue-200" />
+              </div>
+
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -67,7 +77,7 @@ export default function Testimonials() {
 
               {/* Author Info */}
               <div className="flex items-center gap-3 pt-6 border-t border-gray-200">
-                <div className="text-3xl">
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
                   {testimonial.avatar}
                 </div>
                 <div>

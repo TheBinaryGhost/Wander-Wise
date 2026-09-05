@@ -18,6 +18,11 @@ export const getOne = async (_id) => {
     return user;
 }
 
+export const getByIds = async (ids) => {
+    const users = await User.find({ _id: { $in: ids } }, { password: 0 });
+    return users;
+};
+
 export const getUserByEmail = async (email) => {
     const user = await User.findOne({ email });
     if (!user) throw new NotFoundError("User not found!");
