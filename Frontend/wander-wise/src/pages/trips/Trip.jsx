@@ -51,14 +51,16 @@ const Trip = () => {
 
   return (
     <div className="mt-16 p-4 md:p-8 lg:p-12 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Your Trips</h1>
-          <p className="text-gray-500 mt-1">Manage all your travel plans in one place.</p>
+      <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-xl p-6 mb-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Your Trips</h1>
+            <p className="text-gray-500 mt-1">Manage all your travel plans in one place.</p>
+          </div>
+          <Link to="/trips/add">
+            <Button>Add Trip</Button>
+          </Link>
         </div>
-        <Link to="/trips/add">
-          <Button>Add Trip</Button>
-        </Link>
       </div>
 
       {!data || data.length === 0 ? (

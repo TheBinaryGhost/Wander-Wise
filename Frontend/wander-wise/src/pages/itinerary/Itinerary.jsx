@@ -26,10 +26,12 @@ const Itinerary = () => {
 
   return (
     <div className="mt-16 p-4 md:p-8 lg:p-12 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Itineraries</h1>
-          <p className="text-gray-500 mt-1">Select a trip to view and manage your itineraries.</p>
+      <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-xl p-6 mb-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Itineraries</h1>
+            <p className="text-gray-500 mt-1">Select a trip to view and manage your itineraries.</p>
+          </div>
         </div>
       </div>
 
