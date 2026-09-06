@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import useAuth from '@/hooks/useAuth'
 import { Loader2 } from 'lucide-react'
-import { jwtDecode } from 'jwt-decode'
 
 const Register = () => {
     const [name, setName] = React.useState('')
@@ -30,9 +29,11 @@ const Register = () => {
                 body: JSON.stringify({ name, email, password })
             })
             const data = await response.json()
-            if (!response.ok) throw new Error(data.message || 'Registration failed')
-            const decoded = jwtDecode(data.data.token)
-            login(decoded, data.data.token)
+            if (!response.ok) {
+                const detailed = data.errors?.map(e => e.message).join('. ') || data.message || 'Registration failed'
+                throw new Error(detailed)
+            }
+            login(data.data.user, data.data.token)
             navigate('/dashboard')
         } catch (err) {
             setError(err.message)
@@ -89,9 +90,11 @@ const Register = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                minLength={8}
                                 placeholder="••••••••"
                                 className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                             />
+                            <p className="text-xs text-slate-400 mt-1">Minimum 8 characters</p>
                         </div>
 
                         <div>

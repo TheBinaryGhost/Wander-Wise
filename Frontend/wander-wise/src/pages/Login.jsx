@@ -3,7 +3,6 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import useAuth from '@/hooks/useAuth'
 import { Loader2 } from 'lucide-react'
-import { jwtDecode } from 'jwt-decode'
 
 const Login = () => {
     const [email, setEmail] = React.useState('')
@@ -26,9 +25,11 @@ const Login = () => {
                 body: JSON.stringify({ email, password })
             })
             const data = await response.json()
-            if (!response.ok) throw new Error(data.message || 'Login failed')
-            const decoded = jwtDecode(data.data.token)
-            login(decoded, data.data.token)
+            if (!response.ok) {
+                const detailed = data.errors?.map(e => e.message).join('. ') || data.message || 'Login failed'
+                throw new Error(detailed)
+            }
+            login(data.data.user, data.data.token)
             navigate(redirectTo || '/dashboard')
         } catch (err) {
             setError(err.message)
@@ -73,6 +74,7 @@ const Login = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                minLength={8}
                                 placeholder="••••••••"
                                 className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                             />

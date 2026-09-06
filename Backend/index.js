@@ -25,8 +25,8 @@ app.use(cors({
 app.use("/auth/login", rateLimit({ windowMs: 15 * 60 * 1000, max: 30 }));
 app.use("/auth/register", rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }));
 
-// General rate limit: 500 requests per 15 minutes
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 500 }));
+// General rate limit: 1000 requests per 15 minutes
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 1000 }));
 
 app.use(authMiddleware);
 app.use("/", HANDLERS);

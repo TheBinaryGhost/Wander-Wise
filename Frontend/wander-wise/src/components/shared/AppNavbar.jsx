@@ -1,6 +1,7 @@
 import CustomButton from '../shared/CustomButton'
 import { NavLink } from 'react-router-dom'
 import useAuth from '@/hooks/useAuth'
+import { User } from 'lucide-react'
 
 const AppNavbar = () => {
 
@@ -22,10 +23,15 @@ const AppNavbar = () => {
                 <NavLink to={"/baggage"} className={({isActive}) => isActive ? "text-amber-600 font-semibold" : "text-slate-600 hover:text-amber-500 transition-colors"} >Baggage</NavLink>
             </nav>
 
-            <div onClick={logout}>
-                <CustomButton text="Logout"/>
+            <div className="flex items-center gap-3">
+                <NavLink to="/profile" className={({isActive}) => `flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-amber-100 text-amber-700' : 'text-slate-600 hover:bg-slate-100'}`}>
+                    <User className="h-4 w-4" />
+                    <span className="hidden sm:inline">Profile</span>
+                </NavLink>
+                <div onClick={logout}>
+                    <CustomButton text="Logout"/>
+                </div>
             </div>
-            
 
         </div>
     </header>

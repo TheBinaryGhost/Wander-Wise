@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import useApi from '@/hooks/useApi'
+import useAuth from '@/hooks/useAuth'
 import api from '@/api/axios'
-import { Loader2, Users, CalendarDays, Clock3, CheckCircle, DollarSign, MapPin, User } from 'lucide-react'
+import { Loader2, Users, CalendarDays, Clock3, CheckCircle, DollarSign, MapPin, User, Mail, Calendar, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import {
   Card,
   CardContent,
@@ -10,10 +12,12 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { formatDate } from '@/lib/formatter'
 
 const Dashboard = () => {
   const { data: trips, error, loading } = useApi('/trips')
+  const { user } = useAuth()
   const [userMap, setUserMap] = useState({})
   const [userLoading, setUserLoading] = useState(false)
 
@@ -176,6 +180,44 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* User Profile Card */}
+      <Card className="border-slate-200 shadow-sm">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="bg-amber-100 p-2 rounded-lg">
+              <User className="h-5 w-5 text-amber-600" />
+            </div>
+            <CardTitle className="text-slate-800">Your Profile</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white text-2xl font-bold shadow-lg shadow-amber-500/30">
+              {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            </div>
+            <div className="flex-1 space-y-1">
+              <p className="text-xl font-semibold text-slate-800">{user?.name || 'User'}</p>
+              <div className="flex items-center gap-2 text-sm text-slate-500">
+                <Mail className="h-4 w-4" />
+                {user?.email || 'No email'}
+              </div>
+              {user?.createdAt && (
+                <div className="flex items-center gap-2 text-sm text-slate-500">
+                  <Calendar className="h-4 w-4" />
+                  Member since {formatDate(user.createdAt)}
+                </div>
+              )}
+            </div>
+            <Link to="/profile">
+              <Button variant="outline" className="border-amber-300 text-amber-600 hover:bg-amber-50 cursor-pointer">
+                Edit Profile
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-1 border-slate-200 shadow-sm">

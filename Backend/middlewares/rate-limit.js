@@ -1,18 +1,30 @@
-const rateLimitStore = new Map();
-
 const rateLimit = ({ windowMs = 15 * 60 * 1000, max = 100 } = {}) => {
+  const store = new Map();
+
+  const cleanup = setInterval(() => {
+    const now = Date.now();
+    for (const [key, record] of store.entries()) {
+      if (now > record.resetAt) {
+        store.delete(key);
+      }
+    }
+  }, windowMs);
+
+  // Allow the timer to not keep the process alive
+  if (cleanup.unref) cleanup.unref();
+
   return (req, res, next) => {
     if (req.method === "OPTIONS") return next();
 
     const key = req.ip;
     const now = Date.now();
 
-    if (!rateLimitStore.has(key)) {
-      rateLimitStore.set(key, { count: 1, resetAt: now + windowMs });
+    if (!store.has(key)) {
+      store.set(key, { count: 1, resetAt: now + windowMs });
       return next();
     }
 
-    const record = rateLimitStore.get(key);
+    const record = store.get(key);
 
     if (now > record.resetAt) {
       record.count = 1;
@@ -36,15 +48,5 @@ const rateLimit = ({ windowMs = 15 * 60 * 1000, max = 100 } = {}) => {
     next();
   };
 };
-
-// Cleanup stale entries every 10 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, record] of rateLimitStore.entries()) {
-    if (now > record.resetAt) {
-      rateLimitStore.delete(key);
-    }
-  }
-}, 10 * 60 * 1000);
 
 export default rateLimit;
