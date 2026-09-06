@@ -10,8 +10,9 @@ A full-stack travel planning application built with the MERN stack. Plan trips, 
 - **Budget Tracker** — Track trip expenses with categorized spending
 - **Collaboration** — Invite friends via email to collaborate on trips
 - **Authentication** — Secure JWT-based auth with access & refresh tokens
-- **Dark Mode** — Theme switching with light/dark support
+- **User Profile** — View and edit profile from dashboard with avatar and member-since display
 - **Animated Landing Page** — Framer Motion animations, scroll-triggered effects, glowing backgrounds, and hover interactions
+- **Gradient Headers** — Styled page headers across Trips, Itinerary, and Baggage pages
 
 ## Tech Stack
 
@@ -57,7 +58,7 @@ Wander-Wise/
 │       ├── src/
 │       │   ├── api/          # Axios instance
 │       │   ├── components/   # UI components (landing, shared, ui)
-│       │   ├── context/      # Auth & Theme context
+│       │   ├── context/      # Auth context
 │       │   ├── hooks/        # Custom hooks
 │       │   ├── layouts/      # App layout
 │       │   ├── lib/          # Utilities
@@ -166,11 +167,11 @@ The app runs at `http://localhost:5173`.
 ## Security
 
 - **Helmet** — Security headers (CSP, HSTS, X-Frame-Options, etc.)
-- **Rate Limiting** — Per-route limits (login: 30, register: 10) and general limit (500 req/15 min), CORS preflight excluded
-- **Input Validation** — express-validator on all mutation endpoints
+- **Rate Limiting** — Isolated per-route stores (login: 30, register: 10, general: 1000 req/15 min), CORS preflight excluded, `Retry-After` header on 429
+- **Input Validation** — express-validator on all mutation endpoints with detailed field-level error messages
 - **Mass Assignment Protection** — Field whitelists on trip, itinerary, and baggage models
 - **Ownership Checks** — Users can only update/delete their own profiles
-- **Auth Middleware** — JWT verification with try/catch (returns 401 on failure)
+- **Auth Middleware** — JWT verification with try/catch (returns 401 on failure, no hardcoded fallback)
 - **XSS Prevention** — HTML escaping in email content
 - **Body Size Limit** — 10kb max on JSON payloads
 
