@@ -11,6 +11,7 @@ A full-stack travel planning application built with the MERN stack. Plan trips, 
 - **Collaboration** — Invite friends via email to collaborate on trips
 - **Authentication** — Secure JWT-based auth with access & refresh tokens
 - **Dark Mode** — Theme switching with light/dark support
+- **Animated Landing Page** — Framer Motion animations, scroll-triggered effects, glowing backgrounds, and hover interactions
 
 ## Tech Stack
 
@@ -22,6 +23,7 @@ A full-stack travel planning application built with the MERN stack. Plan trips, 
 - shadcn/ui (Radix UI primitives)
 - React Hook Form + Zod validation
 - Axios
+- Framer Motion (animations)
 - Lucide Icons
 
 ### Backend
@@ -160,6 +162,17 @@ The app runs at `http://localhost:5173`.
 | GET    | /baggage/:tripId/:id             | Get baggage by ID   |
 | PATCH  | /baggage/:tripId/:id             | Update baggage      |
 | DELETE | /baggage/:tripId/:id             | Delete baggage      |
+
+## Security
+
+- **Helmet** — Security headers (CSP, HSTS, X-Frame-Options, etc.)
+- **Rate Limiting** — Per-route limits (login: 30, register: 10) and general limit (500 req/15 min), CORS preflight excluded
+- **Input Validation** — express-validator on all mutation endpoints
+- **Mass Assignment Protection** — Field whitelists on trip, itinerary, and baggage models
+- **Ownership Checks** — Users can only update/delete their own profiles
+- **Auth Middleware** — JWT verification with try/catch (returns 401 on failure)
+- **XSS Prevention** — HTML escaping in email content
+- **Body Size Limit** — 10kb max on JSON payloads
 
 ## License
 

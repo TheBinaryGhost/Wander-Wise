@@ -2,6 +2,8 @@ const rateLimitStore = new Map();
 
 const rateLimit = ({ windowMs = 15 * 60 * 1000, max = 100 } = {}) => {
   return (req, res, next) => {
+    if (req.method === "OPTIONS") return next();
+
     const key = req.ip;
     const now = Date.now();
 
@@ -19,10 +21,16 @@ const rateLimit = ({ windowMs = 15 * 60 * 1000, max = 100 } = {}) => {
     }
 
     if (record.count >= max) {
+      const retryAfter = Math.ceil((record.resetAt - now) / 1000);
+      res.set("Retry-After", String(retryAfter));
       return res.status(429).json({
         message: "Too many requests, please try again later",
+        retryAfter,
       });
     }
+
+    res.set("RateLimit-Remaining", String(max - record.count));
+    res.set("RateLimit-Reset", String(Math.ceil(record.resetAt / 1000)));
 
     record.count++;
     next();

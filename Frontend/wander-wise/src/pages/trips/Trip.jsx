@@ -51,7 +51,7 @@ const Trip = () => {
 
   return (
     <div className="mt-16 p-4 md:p-8 lg:p-12 space-y-6">
-      <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-xl p-6 mb-6">
+      <div className="bg-linear-to-br from-amber-50 via-orange-50 to-amber-100 rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Your Trips</h1>
@@ -152,7 +152,7 @@ const Trip = () => {
                 </div>
                 {trip.destinations && trip.destinations.length > 0 && (
                   <div className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                    <MapPin className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
                     <div className="flex flex-wrap gap-1">
                       {trip.destinations.slice(0, 3).map((destination, idx) => (
                         <span key={idx} className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs">
